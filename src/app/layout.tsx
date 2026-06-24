@@ -9,8 +9,8 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Boilerplate — Build Faster",
-  description: "Pre-built hackathon starter with auth, database, AI integrations, and deploy configs.",
+  title: "Zethia — Prove Everything. Reveal Nothing.",
+  description: "Zero-knowledge credentials for Stellar DeFi. Prove creditworthiness without revealing your balance. KYC once, verify everywhere.",
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
