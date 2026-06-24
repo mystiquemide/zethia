@@ -1,28 +1,64 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+"use client";
+
+import { WalletConnect } from "@/components/wallet/WalletConnect";
+import { CredentialCard } from "@/components/credentials/CredentialCard";
+import { MOCK_CREDENTIALS } from "@/lib/credentials";
+import { Shield, Sparkles } from "lucide-react";
 
 export default function DashboardPage() {
   return (
-    <div className="pt-24 px-4">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="text-2xl font-bold text-white">Dashboard</h1>
-        <p className="mt-2 text-gray-400">Welcome. Customize this page with your data.</p>
+    <div className="pt-24 pb-16 px-4">
+      <div className="mx-auto max-w-6xl space-y-10">
+        {/* Header */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold text-white tracking-tight">
+              ZK Credentials
+            </h1>
+            <p className="text-gray-400 text-sm max-w-md">
+              Prove what you need to, without revealing anything else. Your
+              credentials stay private — only the proof goes on-chain.
+            </p>
+          </div>
+          <WalletConnect />
+        </div>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {/* Stats banner */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[
-            { title: "Users", value: "1,284" },
-            { title: "Revenue", value: "$12.4k" },
-            { title: "Uptime", value: "99.9%" },
-            { title: "Projects", value: "47" },
+            { label: "Credentials", value: MOCK_CREDENTIALS.length.toString(), icon: Shield },
+            { label: "All Verified", value: "100%", icon: Sparkles },
+            { label: "Privacy Preserved", value: "ZK", icon: Shield },
           ].map((stat) => (
-            <Card key={stat.title}>
-              <CardHeader>
-                <CardDescription>{stat.title}</CardDescription>
-                <CardTitle className="text-2xl">{stat.value}</CardTitle>
-              </CardHeader>
-            </Card>
+            <div
+              key={stat.label}
+              className="flex items-center gap-4 rounded-xl border border-gray-800 bg-gray-900/50 px-5 py-4"
+            >
+              <div className="flex items-center justify-center size-10 rounded-lg bg-violet-500/10 border border-violet-500/20">
+                <stat.icon className="size-5 text-violet-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-400 font-medium">{stat.label}</p>
+                <p className="text-lg font-bold text-white font-mono">
+                  {stat.value}
+                </p>
+              </div>
+            </div>
           ))}
+        </div>
+
+        {/* Credential Grid */}
+        <div>
+          <h2 className="text-lg font-semibold text-white mb-4">
+            Your Verifiable Credentials
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {MOCK_CREDENTIALS.map((cred) => (
+              <CredentialCard key={cred.id} credential={cred} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
